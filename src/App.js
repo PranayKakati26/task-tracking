@@ -31,10 +31,9 @@ function App() {
     console.log(newTask);
     const id = Math.floor(Math.random() * 10000) + 1;
     const addedTask = { id, ...newTask };
-    console.log([...tasks,addedTask]);
+    console.log([...tasks, addedTask]);
     setTasks([addedTask, ...tasks]);
   };
-
 
   const deleteTask = (id) => {
     // console.log("delete", id);
@@ -43,19 +42,31 @@ function App() {
 
   const togglReminder = (id) => {
     console.log(id);
-    setTasks(tasks.map((task) => task.id === id ? {...task, reminder: !task.reminder} : task))
+    setTasks(
+      tasks.map((task) =>
+        task.id === id ? { ...task, reminder: !task.reminder } : task
+      )
+    );
   };
 
   return (
     <div className="container">
-      <Header onAdd={() => setShowAddTask(!showAddTask)} btnColor={showAddTask ? 'green' : 'red'} btnText={showAddTask ? 'Add' : 'Close'} />
-     {showAddTask && <AddTask addTask={ addTask} />}
+      <Header
+        onAdd={() => setShowAddTask(!showAddTask)}
+        btnColor={showAddTask ? "red" : "green"}
+        btnText={showAddTask ? "Close" : "Add"}
+      />
+      {showAddTask && <AddTask addTask={addTask} />}
       {tasks.length > 0 ? (
-        <Tasks tasks={tasks} setTasks={setTasks} deleteTask={deleteTask} togglReminder={ togglReminder}/>
+        <Tasks
+          tasks={tasks}
+          setTasks={setTasks}
+          deleteTask={deleteTask}
+          togglReminder={togglReminder}
+        />
       ) : (
         "No Tasks yet"
       )}
-     
     </div>
   );
 }
